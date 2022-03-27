@@ -60,16 +60,16 @@ public class Receptor {
         }
         
         boolean mensagemCerta[] = new boolean[8];
+        int indiceCodigoHamming=2;
 
-        mensagemCerta[0] = bits[2];
-        mensagemCerta[1] = bits[4];
-        mensagemCerta[2] = bits[5];
-        mensagemCerta[3] = bits[6];
-        mensagemCerta[4] = bits[8];
-        mensagemCerta[5] = bits[9];
-        mensagemCerta[6] = bits[10];
-        mensagemCerta[7] = bits[11];
-
+        for (int indiceMensagemCerta = 0; indiceMensagemCerta < mensagemCerta.length; indiceMensagemCerta++) {
+            if(indiceCodigoHamming != 3 && indiceCodigoHamming != 7){
+                mensagemCerta[indiceMensagemCerta] = bits[indiceCodigoHamming];
+            }else{
+                indiceMensagemCerta--;
+            }
+            indiceCodigoHamming++;
+        }
         
         // trasformando em mesagem novamente
         decodificarDado(mensagemCerta);

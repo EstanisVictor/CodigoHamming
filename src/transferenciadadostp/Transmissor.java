@@ -60,7 +60,7 @@ public class Transmissor {
         codigoHamming[2] = bits[1] ^ bits[2] ^ bits[3] ^ bits[7];
         // x8
         codigoHamming[3] = bits[4] ^ bits[5] ^ bits[6] ^ bits[7];
-        int indice = 0, indiceCodigoHamming = 0;
+        int indiceBits = 0, indiceCodigoHamming = 0;
         for (int i = 0; i < bitsHamming.length; i++) {
             if (i == 0) {
                 bitsHamming[i] = codigoHamming[indiceCodigoHamming];
@@ -70,8 +70,8 @@ public class Transmissor {
                     bitsHamming[i] = codigoHamming[indiceCodigoHamming];
                     indiceCodigoHamming++;
                 } else {
-                    bitsHamming[i] = bits[indice];
-                    indice++;
+                    bitsHamming[i] = bits[indiceBits];
+                    indiceBits++;
                 }
             }
         }
