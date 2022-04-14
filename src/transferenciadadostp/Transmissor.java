@@ -45,13 +45,9 @@ public class Transmissor {
 
     private boolean[] dadoBitsHemming(boolean bits[]) {
 
-        /*
-         * sua implementação aqui!!!
-         * modifique o que precisar neste método
-         */
-
         boolean bitsHamming[] = new boolean[12];
         boolean codigoHamming[] = new boolean[4];
+        //Operações em XOR para descobrir quais serão os códigos de hamming
         // x1
         codigoHamming[0] = bits[0] ^ bits[1] ^ bits[3] ^ bits[4] ^ bits[6];
         // x2
@@ -60,19 +56,16 @@ public class Transmissor {
         codigoHamming[2] = bits[1] ^ bits[2] ^ bits[3] ^ bits[7];
         // x8
         codigoHamming[3] = bits[4] ^ bits[5] ^ bits[6] ^ bits[7];
+
+        //Adicionando os códigos de hamming junto com a mensagem
         int indiceBits = 0, indiceCodigoHamming = 0;
         for (int i = 0; i < bitsHamming.length; i++) {
-            if (i == 0) {
+            if (i==0 || i == 1 || i == 3 || i == 7) {
                 bitsHamming[i] = codigoHamming[indiceCodigoHamming];
                 indiceCodigoHamming++;
             } else {
-                if (i % 2 == 1 && (i == 1 || i == 3 || i == 7)) {
-                    bitsHamming[i] = codigoHamming[indiceCodigoHamming];
-                    indiceCodigoHamming++;
-                } else {
-                    bitsHamming[i] = bits[indiceBits];
-                    indiceBits++;
-                }
+                bitsHamming[i] = bits[indiceBits];
+                indiceBits++;
             }
         }
 
@@ -82,10 +75,6 @@ public class Transmissor {
     public void enviaDado(Receptor receptor) {
         for (int i = 0; i < this.mensagem.length(); i++) {
             boolean bits[] = streamCaracter(this.mensagem.charAt(i));
-
-            /*-------AQUI você deve adicionar os bits de Hemming para contornar os problemas de ruidos
-                        você pode modificar o método anterior também
-             */
 
             boolean bitsHemming[] = dadoBitsHemming(bits);
 
